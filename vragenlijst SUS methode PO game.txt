@@ -1,0 +1,28 @@
+Geef aan in hoeverre je het eens bent met de volgende stellingen.
+Schaal:
+1 = Helemaal oneens
+2 = Oneens
+3 = Neutraal
+4 = Eens
+5 = Helemaal eens
+
+Vragen:
+1. Ik denk dat ik dit systeem vaak zou willen gebruiken.
+
+2. Ik vond het systeem onnodig complex.
+
+3. Ik vond het systeem eenvoudig te gebruiken.
+
+4. Ik denk dat ik de hulp van een technisch persoon nodig zou hebben om dit systeem te kunnen gebruiken.
+
+5. Ik vond dat de verschillende functies in dit systeem goed waren geïntegreerd.
+
+6. Ik vond dat er te veel inconsistentie in dit systeem zat.
+
+7. Ik kan me voorstellen dat de meeste mensen dit systeem snel zouden leren gebruiken.
+
+8. Ik vond het systeem erg omslachtig om te gebruiken.
+
+9. Ik voelde me zeker bij het gebruik van het systeem.
+
+10. Ik moest veel dingen leren voordat ik goed met dit systeem kon werken.
