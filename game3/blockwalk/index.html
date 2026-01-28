@@ -1,0 +1,2149 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>blockwalk</title>
+        <link rel="icon" href="S1_start.png" type="image/png" sizes="32x32">
+        <style>
+            html, body {
+                overflow: hidden;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+
+            .hidden {
+                display: none;
+                pointer-events: none;
+            }
+            
+            .character {
+                position: absolute;
+                z-index: 5;
+                top: var(--row1);
+                left: var(--col1);
+                width: var(--block_width);
+                height: var(--block_height);
+            }
+
+            .spikes_odd_up {
+                position: absolute;
+                z-index: 2;
+                width: var(--block_width);
+                height: var(--block_height);
+            }
+
+            .spikes_odd_down {
+                position: absolute;
+                z-index: 2;
+                width: var(--block_width);
+                height: var(--block_height);
+            }
+
+            .spikes_even_up {
+                position: absolute;
+                z-index: 2;
+                width: var(--block_width);
+                height: var(--block_height);
+            }
+
+            .spikes_even_down {
+                position: absolute;
+                z-index: 2;
+                width: var(--block_width);
+                height: var(--block_height);
+            }
+            
+            .start {
+                position: absolute;
+                z-index: 2;
+                width: var(--block_width);
+                height: var(--block_height);
+            }
+
+            .end {
+                position: absolute;
+                z-index: 2;
+                width: var(--block_width);
+                height: var(--block_height);
+            }
+
+            .pushable {
+                position: absolute;
+                z-index: 2;
+                width: var(--block_width);
+                height: var(--block_height);
+            }
+
+            .barrier {
+                position: absolute;
+                z-index: 2;
+                width: var(--block_width);
+                height: var(--block_height);
+            }
+
+            .oneway {
+                position: absolute;
+                z-index: 2;
+                width: var(--block_width);
+                height: var(--block_height);
+            }
+
+            .button{
+                position: absolute;
+                z-index: 6;
+                left: 47.5%;
+                top: 46%;
+                width: 5%;
+                height: 8%;
+            }
+            .deathscreen {
+                position: absolute;
+                z-index: 1;
+                width: 100%;
+                height: 100%;
+                opacity: 0;
+                transition: opacity 1s ease;
+            }
+
+            .fade-in {
+                opacity: 1;
+            }
+
+            .hiddendeath {
+                opacity: 0;
+            }
+
+            .victoryscreen {
+                position: absolute;
+                z-index: 1;
+                width: 100%;
+                height: 100%;
+                opacity: 0;
+                transition: opacity 1s ease;
+            }
+
+            .fade-in-victory {
+                opacity: 1;
+            }
+
+            .hiddenvictory {
+                opacity: 0;
+            }
+
+            .endscreen {
+                position: absolute;
+                z-index: 0;
+                width: 100%;
+                height: 100%;
+                opacity: 0;
+                transition: opacity 1s ease;
+            }
+
+            .fade-in-end {
+                opacity: 1;
+            }
+
+            .hiddenend {
+                opacity: 0;
+            }
+
+            .levelselect_bg{
+                position: absolute;
+                z-index: 7;
+                width: var(--menu_width);
+                height: var(--menu_height);
+                left: var(--col6);
+                top: var(--row2);
+            }
+
+            .level1button{
+                position: absolute;
+                border: none;
+                z-index: 7;
+                background-color: transparent;
+                width: var(--levelbutton_width);
+                height: var(--levelbutton_height);
+                left: var(--level1button_left);
+                top: var(--level1button_top);
+                font-size: xx-large;
+            }
+
+            .level2button{
+                position: absolute;
+                border: none;
+                z-index: 7;
+                background-color: transparent;
+                width: var(--levelbutton_width);
+                height: var(--levelbutton_height);
+                left: var(--level2button_left);
+                top: var(--level2button_top);
+                font-size: xx-large;
+            }
+
+            .level3button{
+                position: absolute;
+                border: none;
+                z-index: 7;
+                background-color: transparent;
+                width: var(--levelbutton_width);
+                height: var(--levelbutton_height);
+                left: var(--level3button_left);
+                top: var(--level3button_top);
+                font-size: xx-large;
+            }
+
+            .level4button{
+                position: absolute;
+                border: none;
+                z-index: 7;
+                background-color: transparent;
+                width: var(--levelbutton_width);
+                height: var(--levelbutton_height);
+                left: var(--level1button_left);
+                top: var(--level6button_top);
+                font-size: xx-large;
+            }
+
+            .level5button{
+                position: absolute;
+                border: none;
+                z-index: 7;
+                background-color: transparent;
+                width: var(--levelbutton_width);
+                height: var(--levelbutton_height);
+                left: var(--level2button_left);
+                top: var(--level5button_top);
+                font-size: xx-large;
+            }
+
+            .level6button{
+                position: absolute;
+                border: none;
+                z-index: 7;
+                background-color: transparent;
+                width: var(--levelbutton_width);
+                height: var(--levelbutton_height);
+                left: var(--level3button_left);
+                top: var(--level4button_top);
+                font-size: xx-large;
+            }
+
+            .level7button{
+                position: absolute;
+                border: none;
+                z-index: 7;
+                background-color: transparent;
+                width: var(--levelbutton_width);
+                height: var(--levelbutton_height);
+                left: var(--level1button_left);
+                top: var(--level7button_top);
+                font-size: xx-large;
+            }
+
+            .level8button{
+                position: absolute;
+                border: none;
+                z-index: 7;
+                background-color: transparent;
+                width: var(--levelbutton_width);
+                height: var(--levelbutton_height);
+                left: var(--level2button_left);
+                top: var(--level7button_top);
+                font-size: xx-large;
+            }
+
+            .level9button{
+                position: absolute;
+                border: none;
+                z-index: 7;
+                background-color: transparent;
+                width: var(--levelbutton_width);
+                height: var(--levelbutton_height);
+                left: var(--level3button_left);
+                top: var(--level7button_top);
+                font-size: xx-large;
+            }
+
+            .extrabuttons1{
+                position: absolute;
+                z-index: 8;
+                background-color: #0000FF;
+                width: var(--block_width);
+                height: var(--block_height);
+                left: var(--col5);
+                top: var(--row3);
+                font-size: xx-small;
+            }
+            .extrabuttons2{
+                position: absolute;
+                z-index: 8;
+                background-color: #0000FF;
+                width: var(--block_width);
+                height: var(--block_height);
+                left: var(--col5);
+                top: var(--row4);
+                font-size: xx-small;
+            }
+            .extrabuttons3{
+                position: absolute;
+                z-index: 8;
+                background-color: #0000FF;
+                width: var(--block_width);
+                height: var(--block_height);
+                left: var(--col5);
+                top: var(--row5);
+                font-size: xx-small;
+            }
+            .extrabuttons4{
+                position: absolute;
+                z-index: 8;
+                background-color: #0000FF;
+                width: var(--block_width);
+                height: var(--block_height);
+                left: var(--col5);
+                top: var(--row6);
+                font-size: xx-small;
+            }
+            .extrabuttons5{
+                position: absolute;
+                z-index: 8;
+                background-color: #0000FF;
+                width: var(--block_width);
+                height: var(--block_height);
+                left: var(--col5);
+                top: var(--row7);
+                font-size: xx-small;
+            }
+
+            .extrabuttons6{
+                position: absolute;
+                z-index: 8;
+                background-color: #0000FF;
+                width: var(--block_width);
+                height: var(--block_height);
+                left: var(--col12);
+                top: var(--row3);
+                font-size: xx-small;
+            }
+            .extrabuttons7{
+                position: absolute;
+                z-index: 8;
+                background-color: #0000FF;
+                width: var(--block_width);
+                height: var(--block_height);
+                left: var(--col12);
+                top: var(--row4);
+                font-size: xx-small;
+            }
+            .extrabuttons8{
+                position: absolute;
+                z-index: 8;
+                background-color: #0000FF;
+                width: var(--block_width);
+                height: var(--block_height);
+                left: var(--col12);
+                top: var(--row5);
+                font-size: xx-small;
+            }
+            .extrabuttons9{
+                position: absolute;
+                z-index: 8;
+                background-color: #0000FF;
+                width: var(--block_width);
+                height: var(--block_height);
+                left: var(--col12);
+                top: var(--row6);
+                font-size: xx-small;
+            }
+            .extrabuttons10{
+                position: absolute;
+                z-index: 8;
+                background-color: #0000FF;
+                width: var(--block_width);
+                height: var(--block_height);
+                left: var(--col12);
+                top: var(--row7);
+                font-size: xx-small;
+            }
+            .menubutton {
+                position: absolute;
+                z-index: 8;
+                opacity: 1;
+                background-color: #0000FF;
+                width: var(--block_width);
+                height: var(--block_height);
+                left: var(--col1);
+                top: var(--row1);
+                font-size: xx-small;
+            }
+            .tip1 {
+                position: absolute;
+                z-index: 8;
+                opacity: 1;
+                background-color: #0000FF;
+                width: var(--block_width);
+                height: var(--block_height);
+                left: var(--col2);
+                top: var(--row1);
+                font-size: xx-small;
+            }
+            .tip2 {
+                position: absolute;
+                z-index: 8;
+                opacity: 1;
+                background-color: #0000FF;
+                width: var(--block_width);
+                height: var(--block_height);
+                left: var(--col3);
+                top: var(--row1);
+                font-size: xx-small;
+            }
+            .tip3 {
+                position: absolute;
+                z-index: 8;
+                opacity: 1;
+                background-color: #0000FF;
+                width: var(--block_width);
+                height: var(--block_height);
+                left: var(--col4);
+                top: var(--row1);
+                font-size: xx-small;
+            }
+        </style>
+    </head>
+    <body>
+        <img class="character hidden" src="S1_C_S_1.png">
+        <img class="deathscreen hiddendeath" src="S1_deathscreen.png">
+        <img class="victoryscreen hiddenvictory" src="S1_victoryscreen.png">
+        <img class="endscreen hiddenend" src="S1_endscreen.png">
+        <img class="levelselect_bg hidden" src="S1_levelselect_bg.png">
+
+        <button class="level1button hidden" onclick="startgame(1), showmenu()">1</button>
+        <button class="level2button hidden" onclick="startgame(2), showmenu()">2</button>
+        <button class="level3button hidden" onclick="startgame(3), showmenu()">3</button>
+        <button class="level4button hidden" onclick="startgame(4), showmenu()">4</button>
+        <button class="level5button hidden" onclick="startgame(5), showmenu()">5</button>
+        <button class="level6button hidden" onclick="startgame(6), showmenu()">6</button>
+        <button class="level7button hidden" onclick="startgame(7), showmenu()">7</button>
+        <button class="level8button hidden" onclick="startgame(8), showmenu()">8</button>
+        <button class="level9button hidden" onclick="startgame(9), showmenu()">9</button>
+
+        <button class="extrabuttons1 hidden" onclick="randomlevelbuttonpress()">AI generated level</button>
+        <button class="extrabuttons2 hidden" onclick="stylechange(), showmenu()">try a different style type</button>
+        <button class="extrabuttons3 hidden" onclick="startgame(21), showmenu()">randomly generated level</button>
+        <button class="extrabuttons4 hidden" onclick="resetsizes()">reset window size</button>
+        <button class="extrabuttons5 hidden" onclick="startgame(currentlevel), showmenu()">reset level</button>
+
+        <button class="extrabuttons6 hidden">Spikes go up or down with every move</button>
+        <button class="extrabuttons7 hidden">Push a block to get the spikes in a different rythm</button>
+        <button class="extrabuttons8 hidden">You can only push 1 pushable block in a row!</button>
+        <button class="extrabuttons9 hidden">Press space, enter, or escape to open the menu</button>
+        <button class="extrabuttons10 hidden">Press "R" to reset the level</button>
+        <button class="menubutton hidden" onclick="tips()">Information</button>
+        <button class="tip1 hidden">Press "R" to reset the level</button>
+        <button class="tip2 hidden">Press space, enter, or escape to open the menu</button>
+        <button class="tip3 hidden">Push a block to get the spikes in a different rythm</button>
+
+        <button class="button" onclick="startgame(1)">start game</button>
+
+        <script>
+            function tips(){
+                if(document.querySelector('.tip1').classList.contains('hidden')){
+                    document.querySelector('.tip1').classList.remove('hidden');
+                    document.querySelector('.tip2').classList.remove('hidden');
+                    document.querySelector('.tip3').classList.remove('hidden');
+                }
+                else{
+                    document.querySelector('.tip1').classList.add('hidden');
+                    document.querySelector('.tip2').classList.add('hidden');
+                    document.querySelector('.tip3').classList.add('hidden');
+                }
+            }
+            async function randomlevelbuttonpress(){
+                startgame(420);
+                showmenu();
+                canopen = false;
+                await hellothere();
+                startgame(69);
+                canopen = true;
+            }
+            let styletype = "1";
+            document.getElementsByClassName("character")[0].src = `S${styletype}_C_S_1.png`;
+            document.getElementsByClassName("levelselect_bg")[0].src = `S${styletype}_levelselect_bg.png`;
+            document.getElementsByClassName("deathscreen")[0].src = `S${styletype}_deathscreen.png`;
+            document.getElementsByClassName("victoryscreen")[0].src = `S${styletype}_victoryscreen.png`;
+            document.getElementsByClassName("endscreen")[0].src = `S${styletype}_endscreen.png`;
+            let amountoflevels = 10;
+            let player = document.querySelector('.character');
+            let p1position = 0;
+            let button = document.querySelector('.button');
+            let startedalready = false;
+            let currentlevel = 1;
+            let canmove = true;
+            let canopen = false;
+            //0 = empty
+            //1 = start
+            //2 = finish
+            //3 = barrier
+            //4 = pushable block
+            //5 = spikes
+            //6 = spikes but up
+            //7 = one way facing up
+            //8 = one way facing down
+            //9 = one way facing right
+            //10 = one way facing left
+            let blocknumbers = 
+                [
+                    [1, 10, 19, 28, 37, 46, 55, 64, 73, 82, 91, 100, 109, 118, 127, 136],
+                    [2, 11, 20, 29, 38, 47, 56, 65, 74, 83, 92, 101, 110, 119, 128, 137],
+                    [3, 12, 21, 30, 39, 48, 57, 66, 75, 84, 93, 102, 111, 120, 129, 138],
+                    [4, 13, 22, 31, 40, 49, 58, 67, 76, 85, 94, 103, 112, 121, 130, 139],
+                    [5, 14, 23, 32, 41, 50, 59, 68, 77, 86, 95, 104, 113, 122, 131, 140],
+                    [6, 15, 24, 33, 42, 51, 60, 69, 78, 87, 96, 105, 114, 123, 132, 141],
+                    [7, 16, 25, 34, 43, 52, 61, 70, 79, 88, 97, 106, 115, 124, 133, 142],
+                    [8, 17, 26, 35, 44, 53, 62, 71, 80, 89, 98, 107, 116, 125, 134, 143],
+                    [9, 18, 27, 36, 45, 54, 63, 72, 81, 90, 99, 108, 117, 126, 135, 144]
+                ];
+            
+            let vars = Array.from({ length: 20 }, () => {
+                let r;
+                do {
+                    r = Math.floor(Math.random() * 11);
+                } while (r === 1 || r === 2);
+                return r;
+            });
+
+            let pos1 = Math.floor(Math.random() * 20);
+            let pos2;
+            do {
+                pos2 = Math.floor(Math.random() * 20);
+            } while (pos2 === pos1);
+
+            vars[pos1] = 1;
+            vars[pos2] = 2;
+
+            let [
+                a1, a2, a3, a4, a5, a6, a7, a8, a9, a10,
+                a11, a12, a13, a14, a15, a16, a17, a18, a19, a20
+            ] = vars;
+
+
+            let randomlevel = 
+                [
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 3, a1, a2, a3, a4, 3, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 3, a5, a6, a7, a8, 3, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 3, a9, a10, a11, a12, 3, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 3, a13, a14, a15, a16, 3, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 3, a17, a18, a19, a20, 3, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                ];
+
+            let level0 = 
+                [
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                ];
+
+            let level420 = 
+                [
+                    [3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [4, 0, 8, 8, 8, 0, 4, 0, 8, 8, 0, 0, 0, 0, 0, 0],
+                    [4, 0, 8, 0, 8, 4, 0, 4, 8, 0, 8, 0, 0, 0, 0, 0],
+                    [4, 0, 8, 0, 8, 4, 4, 4, 8, 0, 8, 0, 0, 0, 0, 0],
+                    [4, 0, 8, 0, 8, 4, 0, 4, 8, 0, 8, 0, 0, 0, 0, 0],
+                    [4, 4, 8, 8, 8, 4, 0, 4, 8, 8, 0, 4, 0, 4, 0, 4],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                ];
+
+            let level1 = 
+                [
+                    [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+                    [3, 0, 0, 0, 0, 3, 0, 3, 0, 0, 0, 0, 0, 0, 0, 3],
+                    [3, 0, 0, 0, 0, 3, 0, 3, 0, 3, 0, 3, 0, 3, 0, 3],
+                    [3, 0, 0, 3, 0, 0, 0, 3, 0, 0, 3, 3, 0, 3, 0, 3],
+                    [3, 1, 0, 3, 0, 3, 3, 3, 0, 0, 0, 3, 0, 0, 3, 3],
+                    [3, 0, 0, 3, 0, 0, 0, 3, 0, 3, 3, 0, 3, 0, 0, 3],
+                    [3, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 3, 3, 0, 3],
+                    [3, 0, 0, 0, 0, 3, 0, 3, 0, 3, 0, 3, 2, 0, 0, 3],
+                    [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3]
+                ];
+
+            let level2 = 
+                [
+                    [0, 0, 0, 0, 0, 3, 2, 3, 3, 3, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 3, 0, 3, 1, 3, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 3, 0, 3, 0, 3, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 3, 0, 0, 3, 4, 3, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 3, 0, 4, 0, 0, 0, 3, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 3, 3, 3, 0, 0, 0, 3, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 3, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 0, 0, 0, 0, 0, 0]
+                ];
+
+            let level3 = 
+                [
+                    [0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 3, 1, 0, 5, 0, 0, 0, 3, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 3, 0, 6, 0, 4, 0, 3, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 3, 2, 3, 3, 0, 0, 0, 3, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 3, 6, 5, 0, 6, 3, 6, 3, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 3, 0, 6, 0, 0, 0, 0, 3, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 3, 0, 5, 0, 0, 0, 3, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 3, 0, 3, 4, 3, 0, 3, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0]
+                ];
+
+            let level4 = 
+                [
+                    [0, 0, 0, 0, 3, 6, 10, 0, 3, 0, 9, 0, 3, 0, 0, 0],
+                    [0, 0, 0, 0, 3, 8, 3, 7, 0, 0, 3, 3, 0, 3, 0, 0],
+                    [0, 0, 0, 0, 3, 0, 3, 0, 0, 10, 0, 0, 3, 0, 0, 0],
+                    [0, 0, 0, 2, 10, 0, 0, 3, 3, 1, 9, 0, 3, 0, 0, 0],
+                    [0, 0, 0, 3, 0, 3, 3, 3, 0, 10, 0, 8, 0, 3, 0, 0],
+                    [0, 0, 0, 3, 7, 0, 10, 10, 0, 6, 0, 0, 3, 0, 0, 0],
+                    [0, 0, 0, 3, 0, 0, 3, 0, 8, 7, 3, 0, 3, 0, 0, 0],
+                    [0, 0, 0, 0, 3, 3, 0, 10, 0, 7, 0, 8, 0, 3, 0, 0],
+                    [0, 0, 0, 0, 3, 0, 0, 9, 0, 6, 10, 0, 3, 0, 0, 0]
+                ];
+
+            let level5 = 
+                [
+                    [0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 3, 1, 3, 0, 0, 3, 3, 3, 0, 3, 3, 0, 0, 0],
+                    [0, 0, 3, 0, 3, 0, 0, 3, 0, 0, 4, 2, 3, 0, 0, 0],
+                    [0, 0, 3, 5, 3, 0, 0, 3, 0, 0, 0, 3, 3, 0, 0, 0],
+                    [0, 0, 3, 0, 0, 0, 0, 3, 0, 4, 3, 0, 0, 4, 0, 0],
+                    [0, 0, 3, 0, 3, 0, 0, 5, 0, 0, 0, 3, 3, 0, 0, 0],
+                    [0, 0, 3, 0, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 3, 0, 9, 6, 0, 3, 3, 3, 3, 3, 3, 0, 0, 0],
+                    [0, 0, 0, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                ];
+
+            let level6 = 
+                [
+                    [0, 3, 0, 0, 3, 3, 3, 3, 0, 0, 0, 3, 0, 3, 0, 0],
+                    [3, 5, 0, 0, 0, 9, 0, 0, 3, 0, 0, 3, 0, 0, 0, 3],
+                    [3, 0, 3, 4, 3, 4, 3, 8, 3, 6, 6, 3, 0, 3, 0, 0],
+                    [0, 4, 0, 6, 3, 0, 10, 0, 9, 0, 0, 3, 0, 3, 2, 3],
+                    [3, 1, 3, 0, 3, 0, 0, 3, 0, 3, 3, 0, 0, 6, 3, 3],
+                    [3, 0, 9, 6, 3, 4, 8, 0, 4, 0, 0, 0, 0, 3, 0, 0],
+                    [0, 3, 3, 3, 0, 0, 6, 0, 0, 3, 3, 3, 0, 0, 0, 3],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0],
+                    [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 3, 3]
+                ];
+
+            let level7 = 
+                [
+                    [0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 3, 1, 3, 4, 0, 0, 3, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 3, 0, 3, 0, 0, 0, 3, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 3, 4, 4, 0, 0, 0, 3, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 3, 0, 4, 10, 10, 4, 3, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 3, 0, 8, 4, 0, 0, 3, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 3, 4, 2, 0, 3, 0, 3, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 3, 3, 3, 0, 3, 3, 0, 0, 0, 0, 0]
+                ];
+
+            let level8 = 
+                [
+                    [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+                    [3, 1, 0, 0, 0, 0, 4, 3, 0, 0, 5, 0, 0, 0, 2, 3],
+                    [3, 0, 3, 3, 4, 3, 0, 3, 3, 3, 0, 3, 4, 3, 0, 3],
+                    [3, 0, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 3],
+                    [3, 3, 3, 3, 0, 3, 3, 3, 0, 3, 3, 3, 0, 3, 0, 3],
+                    [3, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 3, 6, 3],
+                    [3, 7, 3, 3, 3, 3, 0, 3, 3, 3, 3, 3, 0, 3, 6, 3],
+                    [3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 3],
+                    [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3]
+                ];
+
+            let level9 = 
+                [
+                    [3, 3, 3, 3, 0, 9, 9, 9, 9, 0, 3, 3, 3, 3, 3, 3],
+                    [3, 0, 4, 0, 7, 0, 0, 0, 3, 5, 6, 0, 4, 0, 0, 3],
+                    [3, 1, 3, 0, 4, 0, 3, 0, 0, 3, 0, 0, 4, 0, 3, 3],
+                    [3, 0, 0, 0, 4, 10, 0, 3, 0, 3, 3, 3, 6, 4, 6, 3],
+                    [3, 0, 4, 0, 0, 3, 0, 9, 0, 3, 0, 0, 0, 0, 0, 3],
+                    [3, 3, 3, 7, 0, 3, 0, 3, 3, 0, 0, 3, 3, 3, 3, 3],
+                    [3, 0, 0, 7, 0, 0, 0, 3, 0, 6, 3, 0, 0, 2, 0, 3],
+                    [3, 0, 0, 0, 0, 3, 0, 3, 0, 0, 0, 0, 0, 0, 0, 3],
+                    [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3]
+                ];
+            
+            
+            let startblock = 1;
+            let endblock = 1;
+            let row1 = (window.innerHeight / 9);
+            let row2 = (window.innerHeight / 9) * 2;
+            let row3 = (window.innerHeight / 9) * 3;
+            let row4 = (window.innerHeight / 9) * 4;
+            let row5 = (window.innerHeight / 9) * 5;
+            let row6 = (window.innerHeight / 9) * 6;
+            let row7 = (window.innerHeight / 9) * 7;
+            let row8 = (window.innerHeight / 9) * 8;
+            let row9 = (window.innerHeight / 9) * 9;
+
+            let col1 = (window.innerWidth / 16);
+            let col2 = (window.innerWidth / 16) * 2;
+            let col3 = (window.innerWidth / 16) * 3;
+            let col4 = (window.innerWidth / 16) * 4;
+            let col5 = (window.innerWidth / 16) * 5;
+            let col6 = (window.innerWidth / 16) * 6;
+            let col7 = (window.innerWidth / 16) * 7;
+            let col8 = (window.innerWidth / 16) * 8;
+            let col9 = (window.innerWidth / 16) * 9;
+            let col10 = (window.innerWidth / 16) * 10;
+            let col11 = (window.innerWidth / 16) * 11;
+            let col12 = (window.innerWidth / 16) * 12;
+            let col13 = (window.innerWidth / 16) * 13;
+            let col14 = (window.innerWidth / 16) * 14;
+            let col15 = (window.innerWidth / 16) * 15;
+            let col16 = (window.innerWidth / 16) * 16;
+
+            let block_height = window.innerHeight / 9;
+            let block_width = window.innerWidth / 16;
+
+            let styleSheet = document.createElement("style");
+            document.head.appendChild(styleSheet);
+
+            document.addEventListener("DOMContentLoaded", function() {
+                resetsizes();
+            });
+
+            document.addEventListener("keydown", function onKeyPress(event) {
+                if(event.key == "Escape" || event.key == " " || event.key == "Enter"){
+                    showmenu();
+                }
+                else if(canmove){
+                    if(event.key == "w" || event.key == "W" || event.key == "ArrowUp") {
+                        movecharacter('up');
+                    }
+                    else if(event.key == "s" || event.key == "S" || event.key == "ArrowDown") {
+                        movecharacter('down');
+                    }
+                    else if(event.key == "a" || event.key == "A" || event.key == "ArrowLeft") {
+                        movecharacter('left');
+                    }
+                    else if(event.key == "d" || event.key == "D" || event.key == "ArrowRight") {
+                        movecharacter('right');
+                    }
+                    else if(event.key == "r" || event.key == "R"){
+                        startgame(currentlevel);
+                    }
+                }
+            });
+
+            function resetsizes(){
+                row1 = (window.innerHeight / 9) * 0;
+                row2 = (window.innerHeight / 9) * 1;
+                row3 = (window.innerHeight / 9) * 2;
+                row4 = (window.innerHeight / 9) * 3;
+                row5 = (window.innerHeight / 9) * 4;
+                row6 = (window.innerHeight / 9) * 5;
+                row7 = (window.innerHeight / 9) * 6;
+                row8 = (window.innerHeight / 9) * 7;
+                row9 = (window.innerHeight / 9) * 8;
+
+                col1 = (window.innerWidth / 16) * 0;
+                col2 = (window.innerWidth / 16) * 1;
+                col3 = (window.innerWidth / 16) * 2;
+                col4 = (window.innerWidth / 16) * 3;
+                col5 = (window.innerWidth / 16) * 4;
+                col6 = (window.innerWidth / 16) * 5;
+                col7 = (window.innerWidth / 16) * 6;
+                col8 = (window.innerWidth / 16) * 7;
+                col9 = (window.innerWidth / 16) * 8;
+                col10 = (window.innerWidth / 16) * 9;
+                col11 = (window.innerWidth / 16) * 10;
+                col12 = (window.innerWidth / 16) * 11;
+                col13 = (window.innerWidth / 16) * 12;
+                col14 = (window.innerWidth / 16) * 13;
+                col15 = (window.innerWidth / 16) * 14;
+                col16 = (window.innerWidth / 16) * 15;
+
+                block_height = window.innerHeight / 9;
+                block_width = window.innerWidth / 16;
+
+                document.documentElement.style.setProperty('--row1', row1 + 'px');
+                document.documentElement.style.setProperty('--row2', row2 + 'px');
+                document.documentElement.style.setProperty('--row3', row3 + 'px');
+                document.documentElement.style.setProperty('--row4', row4 + 'px');
+                document.documentElement.style.setProperty('--row5', row5 + 'px');
+                document.documentElement.style.setProperty('--row6', row6 + 'px');
+                document.documentElement.style.setProperty('--row7', row7 + 'px');
+                document.documentElement.style.setProperty('--row8', row8 + 'px');
+                document.documentElement.style.setProperty('--row9', row9 + 'px');
+
+                document.documentElement.style.setProperty('--col1', col1 + 'px');
+                document.documentElement.style.setProperty('--col2', col2 + 'px');
+                document.documentElement.style.setProperty('--col3', col3 + 'px');
+                document.documentElement.style.setProperty('--col4', col4 + 'px');
+                document.documentElement.style.setProperty('--col5', col5 + 'px');
+                document.documentElement.style.setProperty('--col6', col6 + 'px');
+                document.documentElement.style.setProperty('--col7', col7 + 'px');
+                document.documentElement.style.setProperty('--col8', col8 + 'px');
+                document.documentElement.style.setProperty('--col9', col9 + 'px');
+                document.documentElement.style.setProperty('--col10', col10 + 'px');
+                document.documentElement.style.setProperty('--col11', col11 + 'px');
+                document.documentElement.style.setProperty('--col12', col12 + 'px');
+                document.documentElement.style.setProperty('--col13', col13 + 'px');
+                document.documentElement.style.setProperty('--col14', col14 + 'px');
+                document.documentElement.style.setProperty('--col15', col15 + 'px');
+                document.documentElement.style.setProperty('--col16', col16 + 'px');
+
+                document.documentElement.style.setProperty('--menu_height', block_height * 7 + 'px');
+                document.documentElement.style.setProperty('--menu_width', block_width * 6 + 'px');
+
+                document.documentElement.style.setProperty('--levelbutton_height', (block_height * 7)/5.6 + 'px');
+                document.documentElement.style.setProperty('--levelbutton_width', (block_width * 6)/6 + 'px');
+
+                document.documentElement.style.setProperty('--level1button_left', col7 * 0.995 + 'px');
+                document.documentElement.style.setProperty('--level1button_top', row3 * 0.9625 + 'px');
+
+                document.documentElement.style.setProperty('--level2button_left', col9 * 0.928 + 'px');
+                document.documentElement.style.setProperty('--level2button_top', row3 * 0.9625 + 'px');
+
+                document.documentElement.style.setProperty('--level3button_left', col11 * 0.8925 + 'px');
+                document.documentElement.style.setProperty('--level3button_top', row3 * 0.9625 + 'px');
+
+                document.documentElement.style.setProperty('--level4button_top', row5 * 0.976 + 'px');
+
+                document.documentElement.style.setProperty('--level5button_top', row5 * 0.9725 + 'px');
+                document.documentElement.style.setProperty('--level6button_top', row5 * 0.969 + 'px');
+
+                document.documentElement.style.setProperty('--level7button_top', row7 * 0.9704 + 'px');
+
+                document.documentElement.style.setProperty('--block_height', block_height + 'px');
+                document.documentElement.style.setProperty('--block_width', block_width + 'px');
+            }
+
+            async function startgame(levelnr){
+                document.querySelector('.tip1').classList.add('hidden');
+                document.querySelector('.tip2').classList.add('hidden');
+                document.querySelector('.tip3').classList.add('hidden');
+                document.querySelector('.menubutton').classList.remove("hidden");
+                document.getElementsByClassName("character")[0].src = `S${styletype}_C_S_1.png`;
+                currentlevel = levelnr;
+                if(startedalready){
+                    for(let i = 1; i <= 144; i++){
+                        document.querySelectorAll(`.block${i}`).forEach(item => {
+                            item.remove();
+                        });
+                    }
+                }
+                else{
+                    canopen = true;
+                    button.classList.add("hidden");
+                    /*
+                    await new Promise(resolve => setTimeout(resolve, 250));
+                    button.classList.remove("hidden");
+                    await new Promise(resolve => setTimeout(resolve, 250));
+                    button.classList.add("hidden");
+                    await new Promise(resolve => setTimeout(resolve, 250));
+                    button.classList.remove("hidden");
+                    await new Promise(resolve => setTimeout(resolve, 250));
+                    button.classList.add("hidden");
+                    await new Promise(resolve => setTimeout(resolve, 250));
+                    button.classList.remove("hidden");
+                    await new Promise(resolve => setTimeout(resolve, 250));
+                    button.classList.add("hidden");
+                    await new Promise(resolve => setTimeout(resolve, 250));
+                    button.classList.remove("hidden");
+                    await new Promise(resolve => setTimeout(resolve, 250));
+                    button.classList.add("hidden");
+                    await new Promise(resolve => setTimeout(resolve, 250));
+                    */
+                }
+                startedalready = true;
+                resetsizes();
+                for(let i = 1; i <= 144; i++){
+                    let rownr = 1;
+                    let colnr = 1;
+
+                    if(1 == 1){
+                        if(i <= 9){
+                            rownr = i;
+                            colnr = 1;
+                        }
+                        else if(i <= 18){
+                            rownr = i - 9;
+                            colnr = 2;
+                        }
+                        else if(i <= 27){
+                            rownr = i - 18;
+                            colnr = 3;
+                        }
+                        else if(i <= 36){
+                            rownr = i - 27;
+                            colnr = 4;
+                        }
+                        else if(i <= 45){
+                            rownr = i - 36;
+                            colnr = 5;
+                        }
+                        else if(i <= 54){
+                            rownr = i - 45;
+                            colnr = 6;
+                        }
+                        else if(i <= 63){
+                            rownr = i - 54;
+                            colnr = 7;
+                        }
+                        else if(i <= 72){
+                            rownr = i - 63;
+                            colnr = 8;
+                        }
+                        else if(i <= 81){
+                            rownr = i - 72;
+                            colnr = 9;
+                        }
+                        else if(i <= 90){
+                            rownr = i - 81;
+                            colnr = 10;
+                        }
+                        else if(i <= 99){
+                            rownr = i - 90;
+                            colnr = 11;
+                        }
+                        else if(i <= 108){
+                            rownr = i - 99;
+                            colnr = 12;
+                        }
+                        else if(i <= 117){
+                            rownr = i - 108;
+                            colnr = 13;
+                        }
+                        else if(i <= 126){
+                            rownr = i - 117;
+                            colnr = 14;
+                        }
+                        else if(i <= 135){
+                            rownr = i - 126;
+                            colnr = 15;
+                        }
+                        else if(i <= 144){
+                            rownr = i - 135;
+                            colnr = 16;
+                        }
+                    }
+                    
+                    let row = [];
+                    if(levelnr == 0){
+                        row = level0[rownr - 1];
+                    }
+                    else if(levelnr == 1){
+                        row = level1[rownr - 1];
+                    }
+                    else if(levelnr == 2){
+                        row = level2[rownr - 1];
+                    }
+                    else if(levelnr == 3){
+                        row = level3[rownr - 1];
+                    }
+                    else if(levelnr == 4){
+                        row = level4[rownr - 1];
+                    }
+                    else if(levelnr == 5){
+                        row = level5[rownr - 1];
+                    }
+                    else if(levelnr == 6){
+                        row = level6[rownr - 1];
+                    }
+                    else if(levelnr == 7){
+                        row = level7[rownr - 1];
+                    }
+                    else if(levelnr == 8){
+                        row = level8[rownr - 1];
+                    }
+                    else if(levelnr == 9){
+                        row = level9[rownr - 1];
+                    }
+                    else if(levelnr == 21){
+                        row = randomlevel[rownr - 1];
+                    }
+                    else if(levelnr == 69){
+                        row = randomlevel[rownr - 1];
+                    }
+                    else if(levelnr == 420){
+                        row = level420[rownr - 1];
+                    }
+                    
+                    let block = row[colnr - 1];
+
+                    styleSheet.sheet.insertRule(`
+                        .block${i} {
+                            position: absolute;
+                            z-index: 2;
+                            top: var(--row${rownr});
+                            left: var(--col${colnr});
+                            width: var(--block_width);
+                            height: var(--block_height);
+                        }
+                    `, styleSheet.sheet.cssRules.length);
+
+                    if(block == 0){
+                        //don't add anything
+                    }
+                    else{
+                        let img = document.createElement('img');
+
+                        if(block == 1){
+                            img.src = `S${styletype}_start.png`;
+                            startblock = i;
+                        }
+                        else if(block == 2){
+                            img.src = `S${styletype}_end.png`;
+                            endblock = i;
+                        }
+                        else if(block == 3){
+                            img.src = `S${styletype}_barrier.png`;
+                        }
+                        else if(block == 4){
+                            img.src = `S${styletype}_push.png`;
+                        }
+                        else if(block == 5){
+                            img.src = `S${styletype}_spike_down.png`;
+                            img.classList.add('spikes_even_down');
+                        }
+                        else if(block == 6){
+                            img.src = `S${styletype}_spike_up.png`;
+                            img.classList.add('spikes_odd_up');
+                        }
+                        else if(block == 7){
+                            img.src = `S${styletype}_oneway_N.png`;
+                        }
+                        else if(block == 8){
+                            img.src = `S${styletype}_oneway_S.png`;
+                        }
+                        else if(block == 9){
+                            img.src = `S${styletype}_oneway_E.png`;
+                        }
+                        else if(block == 10){
+                            img.src = `S${styletype}_oneway_W.png`;
+                        }
+
+                        img.classList.add(`block${i}`);
+                        document.body.appendChild(img);
+                    }
+                }
+
+                player.classList.remove('hidden');
+                let playercolumn = blockposition('col', startblock);
+                let playerrow = blockposition('row', startblock);
+                player.style.top = `var(--row${playerrow})`;
+                player.style.left = `var(--col${playercolumn})`;
+
+                p1position = startblock;
+            }
+
+            function movecharacter(direction){
+                if(direction == 'down'){
+                    let downblock = p1position + 1;
+                    document.getElementsByClassName("character")[0].src = `S${styletype}_C_S_1.png`;
+                    if(blockposition('col', downblock) == blockposition('col', p1position)){
+                        if(document.getElementsByClassName(`block${downblock}`).length == 0 && (document.getElementsByClassName(`block${p1position}`).length == 0 || !document.getElementsByClassName(`block${p1position}`)[0].src.endsWith('oneway_E.png') && !document.getElementsByClassName(`block${p1position}`)[0].src.endsWith('oneway_W.png'))){
+                            playermoves('down', downblock);
+                        }
+
+                        else if(document.getElementsByClassName(`block${p1position}`).length == 0 || !document.getElementsByClassName(`block${p1position}`)[0].src.endsWith('oneway_E.png') && !document.getElementsByClassName(`block${p1position}`)[0].src.endsWith('oneway_W.png')){
+                            if(document.getElementsByClassName(`block${downblock}`)[0].src.endsWith('barrier.png')){
+                                //console.log("can't go there, there's a barrier");
+                            }
+                            else if(document.getElementsByClassName(`block${downblock}`)[0].src.endsWith('oneway_N.png')){
+                                //console.log("can't go there, the one way thingy is facing the opposite direction!");
+                            }
+                            else if(document.getElementsByClassName(`block${downblock}`)[0].src.endsWith('oneway_E.png')){
+                                //console.log("can't go there, the one way thingy is facing right");
+                            }
+                            else if(document.getElementsByClassName(`block${downblock}`)[0].src.endsWith('oneway_W.png')){
+                                //console.log("can't go there, the one way thingy is facing left");
+                            }
+                            else if(document.getElementsByClassName(`block${downblock}`)[0].src.endsWith('spike_down.png')){
+                                playermoves('down', downblock);
+                                deathscreen();
+                            }
+                            else if(document.getElementsByClassName(`block${downblock}`)[0].src.endsWith('push.png')){
+                                if(blockposition('col', downblock + 1) == blockposition('col', p1position) && document.getElementsByClassName(`block${downblock + 1}`).length == 0){
+                                    pushblock(downblock, downblock + 1);
+                                }
+                            }
+                            else if(document.getElementsByClassName(`block${downblock}`)[0].src.endsWith('end.png')){
+                                playermoves('down', downblock);
+                                nextlevel();
+                            }
+                            else{
+                                playermoves('down', downblock);
+                            }
+                        }
+                    }
+                }
+                else if(direction == 'up'){
+                    let upblock = p1position - 1;
+                    document.getElementsByClassName("character")[0].src = `S${styletype}_C_N_1.png`;
+                    if(blockposition('col', upblock) == blockposition('col', p1position)){
+
+                        if(document.getElementsByClassName(`block${upblock}`).length == 0 && (document.getElementsByClassName(`block${p1position}`).length == 0 || !document.getElementsByClassName(`block${p1position}`)[0].src.endsWith('oneway_E.png') && !document.getElementsByClassName(`block${p1position}`)[0].src.endsWith('oneway_W.png'))){
+                            playermoves('up', upblock);
+                        }
+                        else if(document.getElementsByClassName(`block${p1position}`).length == 0 || !document.getElementsByClassName(`block${p1position}`)[0].src.endsWith('oneway_E.png') && !document.getElementsByClassName(`block${p1position}`)[0].src.endsWith('oneway_W.png')){
+                            if(document.getElementsByClassName(`block${upblock}`)[0].src.endsWith('barrier.png')){
+                                //console.log("can't go there, there's a barrier");
+                            }
+                            else if(document.getElementsByClassName(`block${upblock}`)[0].src.endsWith('oneway_S.png')){
+                                //console.log("can't go there, the one way thingy is facing the opposite direction!");
+                            }
+                            else if(document.getElementsByClassName(`block${upblock}`)[0].src.endsWith('oneway_E.png')){
+                                //console.log("can't go there, the one way thingy is facing right");
+                            }
+                            else if(document.getElementsByClassName(`block${upblock}`)[0].src.endsWith('oneway_W.png')){
+                                //console.log("can't go there, the one way thingy is facing left");
+                            }
+                            else if(document.getElementsByClassName(`block${upblock}`)[0].src.endsWith('spike_down.png')){
+                                playermoves('up', upblock);
+                                deathscreen();
+                            }
+                            else if(document.getElementsByClassName(`block${upblock}`)[0].src.endsWith('push.png')){
+                                if(blockposition('col', upblock - 1) == blockposition('col', p1position) && document.getElementsByClassName(`block${upblock - 1}`).length == 0){
+                                    pushblock(upblock, upblock - 1);
+                                }
+                            }
+                            else if(document.getElementsByClassName(`block${upblock}`)[0].src.endsWith('end.png')){
+                                playermoves('up', upblock);
+                                nextlevel();
+                            }
+                            else{
+                                playermoves('up', upblock);
+                            }
+                        }
+                    }
+                }
+                else if(direction == 'right'){
+                    let rightblock = p1position + 9;
+                    document.getElementsByClassName("character")[0].src = `S${styletype}_C_E_1.png`;
+                    if(blockposition('row', rightblock) == blockposition('row', p1position)){
+                        if(document.getElementsByClassName(`block${rightblock}`).length == 0 && (document.getElementsByClassName(`block${p1position}`).length == 0 || !document.getElementsByClassName(`block${p1position}`)[0].src.endsWith('oneway_N.png') && !document.getElementsByClassName(`block${p1position}`)[0].src.endsWith('oneway_S.png'))){
+                            playermoves('right', rightblock);
+                        }
+                        else if(document.getElementsByClassName(`block${p1position}`).length == 0 || !document.getElementsByClassName(`block${p1position}`)[0].src.endsWith('oneway_N.png') && !document.getElementsByClassName(`block${p1position}`)[0].src.endsWith('oneway_S.png')){
+                            if(document.getElementsByClassName(`block${rightblock}`)[0].src.endsWith('barrier.png')){
+                                //console.log("can't go there, there's a barrier");
+                            }
+                            else if(document.getElementsByClassName(`block${rightblock}`)[0].src.endsWith('oneway_S.png')){
+                                //console.log("can't go there, the one way thingy is facing the opposite direction!");
+                            }
+                            else if(document.getElementsByClassName(`block${rightblock}`)[0].src.endsWith('oneway_N.png')){
+                                //console.log("can't go there, the one way thingy is facing right");
+                            }
+                            else if(document.getElementsByClassName(`block${rightblock}`)[0].src.endsWith('oneway_W.png')){
+                                //console.log("can't go there, the one way thingy is facing left");
+                            }
+                            else if(document.getElementsByClassName(`block${rightblock}`)[0].src.endsWith('spike_down.png')){
+                                playermoves('right', rightblock);
+                                deathscreen();
+                            }
+                            else if(document.getElementsByClassName(`block${rightblock}`)[0].src.endsWith('push.png')){
+                                if(blockposition('row', rightblock + 9) == blockposition('row', p1position) && document.getElementsByClassName(`block${rightblock + 9}`).length == 0){
+                                    pushblock(rightblock, rightblock + 9);
+                                }
+                            }
+                            else if(document.getElementsByClassName(`block${rightblock}`)[0].src.endsWith('end.png')){
+                                playermoves('right', rightblock);
+                                nextlevel();
+                            }
+                            else{
+                                playermoves('right', rightblock);
+                            }
+                        }
+                    }
+                }
+                else if(direction == 'left'){
+                    let leftblock = p1position - 9;
+                    document.getElementsByClassName("character")[0].src = `S${styletype}_C_W_1.png`;
+                    if(blockposition('row', leftblock) == blockposition('row', p1position)){
+                        if(document.getElementsByClassName(`block${leftblock}`).length == 0 && (document.getElementsByClassName(`block${p1position}`).length == 0 || !document.getElementsByClassName(`block${p1position}`)[0].src.endsWith('oneway_N.png') && !document.getElementsByClassName(`block${p1position}`)[0].src.endsWith('oneway_S.png'))){
+                            playermoves('left', leftblock);
+                        }
+                        else if(document.getElementsByClassName(`block${p1position}`).length == 0 || !document.getElementsByClassName(`block${p1position}`)[0].src.endsWith('oneway_N.png') && !document.getElementsByClassName(`block${p1position}`)[0].src.endsWith('oneway_S.png')){
+                            if(document.getElementsByClassName(`block${leftblock}`)[0].src.endsWith('barrier.png')){
+                                //console.log("can't go there, there's a barrier");
+                            }
+                            else if(document.getElementsByClassName(`block${leftblock}`)[0].src.endsWith('oneway_S.png')){
+                                //console.log("can't go there, the one way thingy is facing the opposite direction!");
+                            }
+                            else if(document.getElementsByClassName(`block${leftblock}`)[0].src.endsWith('oneway_N.png')){
+                                //console.log("can't go there, the one way thingy is facing left");
+                            }
+                            else if(document.getElementsByClassName(`block${leftblock}`)[0].src.endsWith('oneway_E.png')){
+                                //console.log("can't go there, the one way thingy is facing right");
+                            }
+                            else if(document.getElementsByClassName(`block${leftblock}`)[0].src.endsWith('spike_down.png')){
+                                playermoves('left', leftblock);
+                                deathscreen();
+                            }
+                            else if(document.getElementsByClassName(`block${leftblock}`)[0].src.endsWith('push.png')){
+                                if(blockposition('row', leftblock - 9) == blockposition('row', p1position) && document.getElementsByClassName(`block${leftblock - 9}`).length == 0){
+                                    pushblock(leftblock, leftblock - 9);
+                                }
+                            }
+                            else if(document.getElementsByClassName(`block${leftblock}`)[0].src.endsWith('end.png')){
+                                playermoves('left', leftblock);
+                                nextlevel();
+                            }
+                            else{
+                                playermoves('left', leftblock);
+                            }
+                        }
+                    }
+                }
+            }
+
+            function playermoves(direction, newblock){
+                if(direction == 'down'){
+                    let playercolumn = blockposition('col', newblock);
+                    let playerrow = blockposition('row', newblock);
+                    player.style.top = `var(--row${playerrow})`;
+                    player.style.left = `var(--col${playercolumn})`;
+                    p1position = newblock;
+                }
+                else if(direction == 'up'){
+                    let playercolumn = blockposition('col', newblock);
+                    let playerrow = blockposition('row', newblock);
+                    player.style.top = `var(--row${playerrow})`;
+                    player.style.left = `var(--col${playercolumn})`;
+                    p1position = newblock;
+                }
+                else if(direction == 'right'){
+                    let playercolumn = blockposition('col', newblock);
+                    let playerrow = blockposition('row', newblock);
+                    player.style.top = `var(--row${playerrow})`;
+                    player.style.left = `var(--col${playercolumn})`;
+                    p1position = newblock;
+                }
+                else if(direction == 'left'){
+                    let playercolumn = blockposition('col', newblock);
+                    let playerrow = blockposition('row', newblock);
+                    player.style.top = `var(--row${playerrow})`;
+                    player.style.left = `var(--col${playercolumn})`;
+                    p1position = newblock;
+                }
+
+                updatespikes();
+            }
+
+            function updatespikes(){
+                if(document.getElementsByClassName('spikes_odd_up').length > 0){
+                    document.querySelectorAll(".spikes_odd_up").forEach(item => {
+                        item.src = `S${styletype}_spike_down.png`;
+                        item.classList.add('spikes_odd_down');
+                        item.classList.remove('spikes_odd_up');
+                    });
+                }
+                else if(document.getElementsByClassName('spikes_odd_down').length > 0){
+                    document.querySelectorAll(".spikes_odd_down").forEach(item => {
+                        item.src = `S${styletype}_spike_up.png`;
+                        item.classList.add('spikes_odd_up');
+                        item.classList.remove('spikes_odd_down');
+                    });
+                }
+
+                if(document.getElementsByClassName('spikes_even_up').length > 0){
+                    document.querySelectorAll(".spikes_even_up").forEach(item => {
+                        item.src = `S${styletype}_spike_down.png`;
+                        item.classList.add('spikes_even_down');
+                        item.classList.remove('spikes_even_up');
+                    });
+                }
+                else if(document.getElementsByClassName('spikes_even_down').length > 0){
+                    document.querySelectorAll(".spikes_even_down").forEach(item => {
+                        item.src = `S${styletype}_spike_up.png`;
+                        item.classList.add('spikes_even_up');
+                        item.classList.remove('spikes_even_down');
+                    });
+                }
+            }
+
+            async function pushblock(previouslocation, newlocation){
+                if(document.getElementsByClassName('character')[0].src.endsWith('C_S_1.png')){
+                    document.getElementsByClassName("character")[0].src = `S${styletype}_C_S_push.png`;
+                }
+                else if(document.getElementsByClassName('character')[0].src.endsWith('C_N_1.png')){
+                    document.getElementsByClassName("character")[0].src = `S${styletype}_C_N_push.png`;
+                }
+                else if(document.getElementsByClassName('character')[0].src.endsWith('C_W_1.png')){
+                    document.getElementsByClassName("character")[0].src = `S${styletype}_C_W_push.png`;
+                }
+                else if(document.getElementsByClassName('character')[0].src.endsWith('C_E_1.png')){
+                    document.getElementsByClassName("character")[0].src = `S${styletype}_C_E_push.png`;
+                }
+                await new Promise(resolve => setTimeout(resolve, 50));
+                document.querySelector(`.block${previouslocation}`).classList.add(`block${newlocation}`);
+                document.querySelector(`.block${previouslocation}`).classList.remove(`block${previouslocation}`);
+                if(document.getElementsByClassName(`block${p1position}`).length > 0 && document.getElementsByClassName(`block${p1position}`)[0].src.endsWith('spike_down.png')){
+                    deathscreen();
+                }
+                updatespikes();
+            }
+
+            function blockposition(type, block){
+                if(type == 'col'){
+                    if(block <= 9){
+                        return 1;
+                    }
+                    else if(block <= 18){
+                        return 2;
+                    }
+                    else if(block <= 27){
+                        return 3;
+                    }
+                    else if(block <= 36){
+                        return 4;
+                    }
+                    else if(block <= 45){
+                        return 5;
+                    }
+                    else if(block <= 54){
+                        return 6;
+                    }
+                    else if(block <= 63){
+                        return 7;
+                    }
+                    else if(block <= 72){
+                        return 8;
+                    }
+                    else if(block <= 81){
+                        return 9;
+                    }
+                    else if(block <= 90){
+                        return 10;
+                    }
+                    else if(block <= 99){
+                        return 11;
+                    }
+                    else if(block <= 108){
+                        return 12;
+                    }
+                    else if(block <= 117){
+                        return 13;
+                    }
+                    else if(block <= 126){
+                        return 14;
+                    }
+                    else if(block <= 135){
+                        return 15;
+                    }
+                    else if(block <= 144){
+                        return 16;
+                    }
+                    else{
+                        return 17;
+                    }
+                }
+
+                else if(type == 'row'){
+                    let column = blockposition('col', block);
+                    if(column < 17){
+                        return block - (9*(column-1));
+                    }
+                    else{
+                        return 10;
+                    }
+                }
+            }
+
+            async function endscreen(){
+                canmove = false;
+                document.querySelector('.endscreen').style.zIndex = 10;
+                let el = document.querySelector('.endscreen');
+                el.classList.remove("hiddenend");
+                el.classList.add("fade-in-end");
+
+                await new Promise(resolve => setTimeout(resolve, 4000));
+                startgame(1);
+                showmenu();
+
+                el.classList.remove("fade-in-end");
+                el.classList.add("hiddenend");
+                
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                document.querySelector('.endscreen').style.zIndex = 1;
+            }
+
+            async function deathscreen(){
+                canmove = false;
+                document.querySelector('.deathscreen').style.zIndex = 10;
+                let el = document.querySelector('.deathscreen');
+                el.classList.remove("hiddendeath");
+                el.classList.add("fade-in");
+
+                await new Promise(resolve => setTimeout(resolve, 2000));
+                startgame(currentlevel);
+
+                el.classList.remove("fade-in");
+                el.classList.add("hiddendeath");
+                
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                document.querySelector('.deathscreen').style.zIndex = 1;
+                canmove = true;
+            }
+
+            async function nextlevel(){
+                if(currentlevel + 1 == 10){
+                    endscreen();
+                }
+                else{
+                    canmove = false;
+                    document.querySelector('.victoryscreen').style.zIndex = 10;
+                    let el = document.querySelector('.victoryscreen');
+                    el.classList.remove("hiddenvictory");
+                    el.classList.add("fade-in-victory");
+
+                    await new Promise(resolve => setTimeout(resolve, 2000));
+                    if(amountoflevels > currentlevel){
+                        startgame(currentlevel + 1);
+                    }
+
+                    el.classList.remove("fade-in-victory");
+                    el.classList.add("hiddenvictory");
+                    
+                    await new Promise(resolve => setTimeout(resolve, 1000));
+                    document.querySelector('.victoryscreen').style.zIndex = 1;
+                    canmove = true;
+                }
+            }
+
+            function showmenu(){
+                if(canopen){
+                    if(document.querySelector(".levelselect_bg").classList.contains('hidden')){
+                        canmove = false;
+                        document.querySelector(".levelselect_bg").classList.remove('hidden');
+                        document.querySelector(".level1button").classList.remove('hidden');
+                        document.querySelector(".level2button").classList.remove('hidden');
+                        document.querySelector(".level3button").classList.remove('hidden');
+                        document.querySelector(".level4button").classList.remove('hidden');
+                        document.querySelector(".level5button").classList.remove('hidden');
+                        document.querySelector(".level6button").classList.remove('hidden');
+                        document.querySelector(".level7button").classList.remove('hidden');
+                        document.querySelector(".level8button").classList.remove('hidden');
+                        document.querySelector(".level9button").classList.remove('hidden');
+                        document.querySelector(".extrabuttons1").classList.remove('hidden');
+                        document.querySelector(".extrabuttons2").classList.remove('hidden');
+                        document.querySelector(".extrabuttons3").classList.remove('hidden');
+                        document.querySelector(".extrabuttons4").classList.remove('hidden');
+                        document.querySelector(".extrabuttons5").classList.remove('hidden');
+                        document.querySelector(".extrabuttons6").classList.remove('hidden');
+                        document.querySelector(".extrabuttons7").classList.remove('hidden');
+                        document.querySelector(".extrabuttons8").classList.remove('hidden');
+                        document.querySelector(".extrabuttons9").classList.remove('hidden');
+                        document.querySelector(".extrabuttons10").classList.remove('hidden');
+                        document.querySelector('.menubutton').classList.add('hidden');
+                        document.querySelector('.tip1').classList.add('hidden');
+                        document.querySelector('.tip2').classList.add('hidden');
+                        document.querySelector('.tip3').classList.add('hidden');
+                    }
+                    else{
+                        canmove = true;
+                        document.querySelector(".levelselect_bg").classList.add('hidden');
+                        document.querySelector(".level1button").classList.add('hidden');
+                        document.querySelector(".level2button").classList.add('hidden');
+                        document.querySelector(".level3button").classList.add('hidden');
+                        document.querySelector(".level4button").classList.add('hidden');
+                        document.querySelector(".level5button").classList.add('hidden');
+                        document.querySelector(".level6button").classList.add('hidden');
+                        document.querySelector(".level7button").classList.add('hidden');
+                        document.querySelector(".level8button").classList.add('hidden');
+                        document.querySelector(".level9button").classList.add('hidden');
+                        document.querySelector(".extrabuttons1").classList.add('hidden');
+                        document.querySelector(".extrabuttons2").classList.add('hidden');
+                        document.querySelector(".extrabuttons3").classList.add('hidden');
+                        document.querySelector(".extrabuttons4").classList.add('hidden');
+                        document.querySelector(".extrabuttons5").classList.add('hidden');
+                        document.querySelector(".extrabuttons6").classList.add('hidden');
+                        document.querySelector(".extrabuttons7").classList.add('hidden');
+                        document.querySelector(".extrabuttons8").classList.add('hidden');
+                        document.querySelector(".extrabuttons9").classList.add('hidden');
+                        document.querySelector(".extrabuttons10").classList.add('hidden');
+                        document.querySelector('.menubutton').classList.remove('hidden');
+                        document.querySelector('.tip1').classList.add('hidden');
+                        document.querySelector('.tip2').classList.add('hidden');
+                        document.querySelector('.tip3').classList.add('hidden');
+                    }
+                }
+            }
+
+            function stylechange(){
+                if(styletype == "1"){
+                    styletype = "2";
+                }
+                else if(styletype == "2"){
+                    styletype = "1";
+                }
+                document.getElementsByClassName("character")[0].src = `S${styletype}_C_S_1.png`;
+                document.getElementsByClassName("levelselect_bg")[0].src = `S${styletype}_levelselect_bg.png`;
+                document.getElementsByClassName("deathscreen")[0].src = `S${styletype}_deathscreen.png`;
+                document.getElementsByClassName("victoryscreen")[0].src = `S${styletype}_victoryscreen.png`;
+                document.getElementsByClassName("endscreen")[0].src = `S${styletype}_endscreen.png`;
+                startgame(currentlevel);
+            }
+
+            
+
+
+
+            let goodorbad = 'fail';
+            let AIlevel = 
+                [
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 3, 1, 0, 0, 0, 3, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 3, 0, 0, 2, 0, 3, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                ];
+
+            let testnotes = false;
+            
+            let AIbrains = [];
+            let startblock1 = 1;
+
+            let variables = [];
+            let correctbrains = [];
+
+            async function thisfunctionwillbecalledbytheotherprogram(){
+                let thingy = await automatic();
+                return thingy;
+            }
+            async function automatic(){
+                let goodlevel = 'no';
+                let z = 0;
+
+                while(goodlevel == 'no' && z < 20){
+                    goodorbad = 'fail';
+                    correctbrains = [];
+                    AIlevel = 
+                    [
+                        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 3, 1, 0, 0, 0, 3, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 3, 0, 0, 2, 0, 3, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                    ];
+
+                    testnotes = false;
+                    
+                    AIbrains = [];
+                    startblock1 = 1;
+
+                    variables = [];
+
+                    randomlevelcreator();
+                    await createAIthing();
+                    if(correctbrains.length > 3){
+                        goodlevel = 'yes';
+                    }
+                    z += 1;
+                }
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                return AIlevel;
+            }
+            async function createAIthing(){
+                goodorbad = 'fail';
+                while(goodorbad == 'fail'){
+                    randomlevelcreator();
+                    await new Promise(resolve => setTimeout(resolve, 1000));
+                    goodorbad = await createAI();
+                }
+            }
+            function randomlevelcreator(){
+                let vars = Array.from({ length: 20 }, () => {
+                    let r;
+                    do {
+                        r = Math.floor(Math.random() * 11);
+                    } while (r === 1 || r === 2);
+                    return r;
+                });
+
+                let pos1 = Math.floor(Math.random() * 20);
+                let pos2;
+                do {
+                    pos2 = Math.floor(Math.random() * 20);
+                } while (pos2 === pos1);
+
+                vars[pos1] = 1;
+                vars[pos2] = 2;
+
+                let [
+                    a1, a2, a3, a4, a5, a6, a7, a8, a9, a10,
+                    a11, a12, a13, a14, a15, a16, a17, a18, a19, a20
+                ] = vars;
+
+
+                AIlevel = 
+                    [
+                        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 3, a1, a2, a3, a4, 3, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 3, a5, a6, a7, a8, 3, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 3, a9, a10, a11, a12, 3, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 3, a13, a14, a15, a16, 3, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 3, a17, a18, a19, a20, 3, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                    ];
+            }
+
+
+            async function createAI(){
+                if(AIlevel.length == 9){
+                    AIbrains.push(['d']);
+                    AIbrains.push(['u']);
+                    AIbrains.push(['r']);
+                    AIbrains.push(['l']);
+                    if(testnotes){
+                        console.log(AIbrains);
+                    }
+                    await new Promise(resolve => setTimeout(resolve, 2000));
+                    let x = 0;
+                    let succes = 'none';
+                    while(succes == 'none' && x <= 16){
+                        succes = await aaa();
+                        x += 1;
+                    }
+                    if(succes == 'none'){
+                        return 'fail';
+                    }
+                    else{
+                        return 'succes';
+                    }
+
+                    
+                    async function aaa(){
+                        let amountofgenerations = AIbrains.length;
+                        let newBrains = [];
+
+                        for(let i = 0; i < amountofgenerations; i++) {
+                            let templevel = AIlevel.map(row => [...row]);
+                            let result = test(AIbrains[i], templevel);
+
+                            if(result == 1) {
+                                correctbrains = AIbrains[i];
+                                return AIbrains[i];
+                            }
+                            else if(result == 2) {
+                                let last = AIbrains[i][AIbrains[i].length - 1];
+                                if (last !== 'd') newBrains.push([...AIbrains[i], 'u']);
+                                if (last !== 'u') newBrains.push([...AIbrains[i], 'd']);
+                                if (last !== 'r') newBrains.push([...AIbrains[i], 'l']);
+                                if (last !== 'l') newBrains.push([...AIbrains[i], 'r']);
+                            }
+                            else if(result == 3) {
+                                AIbrains[i] = null;
+                            }
+                        }
+
+                        AIbrains = [];
+
+                        AIbrains.push(...newBrains);
+
+                        AIbrains = AIbrains.filter(brain => brain != null);
+
+                        return 'none';
+                    }
+                    
+                }
+            }
+
+
+            function test(AI, level){
+                function whatblock(blocknr){
+                    let colnr = blockposition('col', blocknr);
+                    let rownr = blockposition('row', blocknr);
+                    let row = level[rownr - 1];
+                    let block = row[colnr - 1];
+                    block = row[colnr - 1];
+                    return block;
+                }
+
+                for(let i = 1; i <= 144; i++){
+                    if(whatblock(i) == 1){
+                        startblock1 = i;
+                        if(testnotes){
+                            console.log('startblock1: ' + i);
+                            console.log('');
+                        }
+                        break
+                    }
+                }
+
+                blockposition('col', startblock1);
+
+                let pposition = startblock1;
+                let unevenspikes = 'down';
+                let evenspikes = 'up';
+
+                for(let i = 0; i <= AI.length; i++){
+                    let possible = false;
+
+                    if(AI[i] == 'd'){
+                        let downblock = pposition + 1;
+                        if(blockposition('col', downblock) == blockposition('col', pposition)){
+                            if (
+                                (
+                                    whatblock(downblock) == 0 ||
+                                    whatblock(downblock) == 1 ||
+                                    whatblock(downblock) == 8 ||
+                                    (whatblock(downblock) == 5 && unevenspikes == 'up') ||
+                                    (whatblock(downblock) == 6 && evenspikes == 'up')
+                                )
+                                &&
+                                (
+                                    whatblock(pposition) == 0 ||
+                                    (whatblock(pposition) != 9 && whatblock(pposition) != 10)
+                                )
+                            ) {
+                                possible = true;
+                                if(testnotes){
+                                    console.log('moved player from ' + pposition + ' to ' + downblock);
+                                }
+                                pposition = downblock;
+                                if(unevenspikes == 'down'){
+                                    unevenspikes = 'up';
+                                    evenspikes = 'down';
+                                }
+                                else{
+                                    unevenspikes = 'down';
+                                    evenspikes = 'up';
+                                }
+                            }
+                            else if (
+                                (blockposition('col', downblock) == blockposition('col', downblock + 1)) &&
+                                (whatblock(downblock) == 4) &&
+                                (whatblock(downblock + 1) == 0) &&
+                                (
+                                    (whatblock(pposition) == 0) || 
+                                    (
+                                        (whatblock(pposition) != 9) && 
+                                        (whatblock(pposition) != 10)
+                                    ) &&
+                                    !(
+                                        (whatblock(pposition) == 5 && unevenspikes == 'down') || 
+                                        (whatblock(pposition) == 6 && evenspikes == 'down')
+                                    )
+                                )
+                            ) {
+                                possible = true;
+                                if(testnotes){
+                                    console.log('pushed box from ' + downblock + ' to ' + (downblock + 1));
+                                }
+                                let replacing = level[blockposition('row', downblock) - 1];
+                                replacing[blockposition('col', downblock) - 1] = 0;
+                                level[blockposition('row', downblock) - 1] = replacing;
+
+                                let replacing2 = level[blockposition('row', downblock + 1) - 1];
+                                replacing2[blockposition('col', downblock + 1) - 1] = 4;
+                                level[blockposition('row', downblock + 1) - 1] = replacing2;
+
+                                if(unevenspikes == 'down'){
+                                    unevenspikes = 'up';
+                                    evenspikes = 'down';
+                                }
+                                else{
+                                    unevenspikes = 'down';
+                                    evenspikes = 'up';
+                                }
+                            }
+                            else if (
+                                (whatblock(downblock) == 2) &&
+                                (whatblock(pposition) == 0 || (whatblock(pposition) != 9 && whatblock(pposition) != 10))
+                            ) {
+                                if(unevenspikes == 'down'){
+                                    unevenspikes = 'up';
+                                    evenspikes = 'down';
+                                }
+                                else{
+                                    unevenspikes = 'down';
+                                    evenspikes = 'up';
+                                }
+                                possible = true;
+                                if(testnotes){
+                                    console.log('moved player from ' + pposition + ' to ' + downblock);
+                                }
+                                
+                                pposition = downblock;
+                                if(testnotes){
+                                    console.log('');
+                                    console.log('this level can be completed by your ai in ' + (i + 1) + ' steps');
+                                    console.log('');
+                                    console.log('total ai brain length: ' + AI.length);
+                                    console.log('ai brain: ' + AI);
+                                    console.log(level[0] + '\n' + level[1] + '\n' + level[2] + '\n' + level[3] + '\n' + level[4] + '\n' + level[5] + '\n' + level[6] + '\n' + level[7] + '\n' + level[8]);
+                                }
+                                return 1;
+                            }
+                            else{
+                                possible = false;
+                                if(testnotes){
+                                    console.log("couldn't move player from " + pposition + " to " + downblock);
+                                    console.log("this level can't be completed by your ai");
+                                }
+                                return 3;
+                            }
+                        }
+                    }
+                    else if(AI[i] == 'u'){
+                        let upblock = pposition - 1;
+                        if(blockposition('col', upblock) == blockposition('col', pposition)){
+                            if (
+                                (
+                                    whatblock(upblock) == 0 ||
+                                    whatblock(upblock) == 1 ||
+                                    whatblock(upblock) == 7 ||
+                                    (whatblock(upblock) == 5 && unevenspikes == 'up') ||
+                                    (whatblock(upblock) == 6 && evenspikes == 'up')
+                                )
+                                &&
+                                (
+                                    whatblock(pposition) == 0 ||
+                                    (whatblock(pposition) != 9 && whatblock(pposition) != 10)
+                                )
+                            ) {
+                                possible = true;
+                                if(testnotes){
+                                    console.log('moved player from ' + pposition + ' to ' + upblock);
+                                }
+                                pposition = upblock;
+                                if(unevenspikes == 'down'){
+                                    unevenspikes = 'up';
+                                    evenspikes = 'down';
+                                }
+                                else{
+                                    unevenspikes = 'down';
+                                    evenspikes = 'up';
+                                }
+                            }
+                            else if (
+                                (blockposition('col', upblock) == blockposition('col', upblock - 1)) &&
+                                (whatblock(upblock) == 4) &&
+                                (whatblock(upblock - 1) == 0) &&
+                                (
+                                    (whatblock(pposition) == 0) || 
+                                    (whatblock(pposition) != 9 && whatblock(pposition) != 10)
+                                ) &&
+                                !(
+                                    (whatblock(pposition) == 5 && unevenspikes == 'down') || 
+                                    (whatblock(pposition) == 6 && evenspikes == 'down')
+                                )
+                            ) {
+
+                                possible = true;
+                                if(testnotes){
+                                    console.log('pushed box from ' + upblock + ' to ' + (upblock - 1));
+                                }
+                                let replacing = level[blockposition('row', upblock) - 1];
+                                replacing[blockposition('col', upblock) - 1] = 0;
+                                level[blockposition('row', upblock) - 1] = replacing;
+
+                                let replacing2 = level[blockposition('row', upblock - 1) - 1];
+                                replacing2[blockposition('col', upblock - 1) - 1] = 4;
+                                level[blockposition('row', upblock - 1) - 1] = replacing2;
+
+                                if(unevenspikes == 'down'){
+                                    unevenspikes = 'up';
+                                    evenspikes = 'down';
+                                }
+                                else{
+                                    unevenspikes = 'down';
+                                    evenspikes = 'up';
+                                }
+                            }
+                            else if (
+                                whatblock(upblock) == 2
+                                && (whatblock(pposition) != 9 && whatblock(pposition) != 10)
+                            ) {
+
+                                if(unevenspikes == 'down'){
+                                    unevenspikes = 'up';
+                                    evenspikes = 'down';
+                                }
+                                else{
+                                    unevenspikes = 'down';
+                                    evenspikes = 'up';
+                                }
+                                possible = true;
+                                if(testnotes){
+                                    console.log('moved player from ' + pposition + ' to ' + upblock);
+                                }
+                                pposition = upblock;
+                                if(testnotes){
+                                    console.log('');
+                                    console.log('this level can be completed by your ai in ' + (i + 1) + ' steps');
+                                    console.log('');
+                                    console.log('total ai brain length: ' + AI.length);
+                                    console.log('ai brain: ' + AI);
+                                    console.log(level[0] + '\n' + level[1] + '\n' + level[2] + '\n' + level[3] + '\n' + level[4] + '\n' + level[5] + '\n' + level[6] + '\n' + level[7] + '\n' + level[8]);
+                                }
+                                return 1;
+                            }
+                            else{
+                                possible = false;
+                                if(testnotes){
+                                    console.log("couldn't move player from " + pposition + " to " + upblock);
+                                    console.log("this level can't be completed by your ai");
+                                }
+                                return 3;
+                            }
+                        }
+                    }
+                    else if(AI[i] == 'r'){
+                        let rightblock = pposition + 9;
+                        if(blockposition('row', rightblock) == blockposition('row', pposition)){
+                            if (
+                                (
+                                    whatblock(rightblock) == 0 || 
+                                    whatblock(rightblock) == 1 || 
+                                    whatblock(rightblock) == 9 || 
+                                    (whatblock(rightblock) == 5 && unevenspikes == 'up') || 
+                                    (whatblock(rightblock) == 6 && evenspikes == 'up')
+                                )
+                                &&
+                                (
+                                    whatblock(pposition) == 0 || 
+                                    (whatblock(pposition) != 7 && whatblock(pposition) != 8)
+                                )
+                            ) {
+
+                                possible = true;
+                                if(testnotes){
+                                    console.log('moved player from ' + pposition + ' to ' + rightblock);
+                                }
+                                pposition = rightblock;
+                                if(unevenspikes == 'down'){
+                                    unevenspikes = 'up';
+                                    evenspikes = 'down';
+                                }
+                                else{
+                                    unevenspikes = 'down';
+                                    evenspikes = 'up';
+                                }
+                            }
+                            else if (
+                                (blockposition('row', rightblock) == blockposition('row', rightblock + 9)) &&
+                                whatblock(rightblock) == 4 &&
+                                whatblock(rightblock + 9) == 0 &&
+                                (
+                                    (whatblock(pposition) == 0) || 
+                                    (whatblock(pposition) != 7 && whatblock(pposition) != 8)
+                                ) &&
+                                !(
+                                    (whatblock(pposition) == 5 && unevenspikes == 'down') || 
+                                    (whatblock(pposition) == 6 && evenspikes == 'down')
+                                )
+                            ) {
+
+                                possible = true;
+                                if(testnotes){
+                                    console.log('puhed box from ' + rightblock + ' to ' + (rightblock + 9));
+                                }
+                                let replacing = level[blockposition('row', rightblock) - 1];
+                                replacing[blockposition('col', rightblock) - 1] = 0;
+                                level[blockposition('row', rightblock) - 1] = replacing;
+
+                                let replacing2 = level[blockposition('row', rightblock + 9) - 1];
+                                replacing2[blockposition('col', rightblock + 9) - 1] = 4;
+                                level[blockposition('row', rightblock + 9) - 1] = replacing2;
+
+                                if(unevenspikes == 'down'){
+                                    unevenspikes = 'up';
+                                    evenspikes = 'down';
+                                }
+                                else{
+                                    unevenspikes = 'down';
+                                    evenspikes = 'up';
+                                }
+                            }
+                            else if (
+                                whatblock(rightblock) == 2 &&
+                                (
+                                    whatblock(pposition) == 0 ||
+                                    (whatblock(pposition) != 7 && whatblock(pposition) != 8)
+                                )
+                            ) {
+
+                                if(unevenspikes == 'down'){
+                                    unevenspikes = 'up';
+                                    evenspikes = 'down';
+                                }
+                                else{
+                                    unevenspikes = 'down';
+                                    evenspikes = 'up';
+                                }
+                                possible = true;
+                                if(testnotes){
+                                    console.log('moved player from ' + pposition + ' to ' + rightblock);
+                                }
+                                pposition = rightblock;
+                                if(testnotes){
+                                    console.log('');
+                                    console.log('this level can be completed by your ai in ' + (i + 1) + ' steps');
+                                    console.log('');
+                                    console.log('total ai brain length: ' + AI.length);
+                                    console.log('ai brain: ' + AI);
+                                    console.log(level[0] + '\n' + level[1] + '\n' + level[2] + '\n' + level[3] + '\n' + level[4] + '\n' + level[5] + '\n' + level[6] + '\n' + level[7] + '\n' + level[8]);
+                                }
+                                return 1;
+                            }
+                            else{
+                                possible = false;
+                                if(testnotes){
+                                    console.log("couldn't move player from " + pposition + " to " + rightblock);
+                                    console.log("this level can't be completed by your ai");
+                                }
+                                return 3;
+                            }
+                        }
+                    }
+                    else if(AI[i] == 'l'){
+                        let leftblock = pposition - 9;
+                        if(blockposition('row', leftblock) == blockposition('row', pposition)){
+                            if (
+                            (
+                                whatblock(leftblock) == 0
+                                || whatblock(leftblock) == 1
+                                || whatblock(leftblock) == 10
+                                || (whatblock(leftblock) == 5 && unevenspikes == 'up')
+                                || (whatblock(leftblock) == 6 && evenspikes == 'up')
+                            )
+                            && 
+                            (
+                                whatblock(pposition) == 0 
+                                || (whatblock(pposition) != 7 && whatblock(pposition) != 8)
+                            )
+                            ) {
+
+                                possible = true;
+                                if(testnotes){
+                                    console.log('moved player from ' + pposition + ' to ' + leftblock);
+                                }
+                                pposition = leftblock;
+                                if(unevenspikes == 'down'){
+                                    unevenspikes = 'up';
+                                    evenspikes = 'down';
+                                }
+                                else{
+                                    unevenspikes = 'down';
+                                    evenspikes = 'up';
+                                }
+                            }
+                            else if (
+                                blockposition('row', leftblock) == blockposition('row', leftblock - 9) &&
+                                whatblock(leftblock) == 4 &&
+                                whatblock(leftblock - 9) == 0 &&
+                                (
+                                    whatblock(pposition) == 0 || 
+                                    (whatblock(pposition) != 7 && whatblock(pposition) != 8)
+                                ) &&
+                                !(
+                                    (whatblock(pposition) == 5 && unevenspikes == 'down') || 
+                                    (whatblock(pposition) == 6 && evenspikes == 'down')
+                                )
+                            ) {
+
+                                possible = true;
+                                if(testnotes){
+                                    console.log('puhed box from ' + leftblock + ' to ' + (leftblock + 9));
+                                }
+                                pposition = pposition;
+                                let replacing = level[blockposition('row', leftblock) - 1];
+                                replacing[blockposition('col', leftblock) - 1] = 0;
+                                level[blockposition('row', leftblock) - 1] = replacing;
+
+                                let replacing2 = level[blockposition('row', leftblock - 9) - 1];
+                                replacing2[blockposition('col', leftblock - 9) - 1] = 4;
+                                level[blockposition('row', leftblock - 9) - 1] = replacing2;
+
+                                if(unevenspikes == 'down'){
+                                    unevenspikes = 'up';
+                                    evenspikes = 'down';
+                                }
+                                else{
+                                    unevenspikes = 'down';
+                                    evenspikes = 'up';
+                                }
+                            }
+                            else if (
+                                whatblock(leftblock) == 2 &&
+                                (
+                                    whatblock(pposition) == 0 ||
+                                    (whatblock(pposition) !== 7 && whatblock(pposition) !== 8)
+                                )
+                            ) {
+
+                                if(unevenspikes == 'down'){
+                                    unevenspikes = 'up';
+                                    evenspikes = 'down';
+                                }
+                                else{
+                                    unevenspikes = 'down';
+                                    evenspikes = 'up';
+                                }
+                                possible = true;
+                                if(testnotes){
+                                    console.log('moved player from ' + pposition + ' to ' + leftblock);
+                                }
+                                pposition = leftblock;
+                                if(testnotes){
+                                    console.log('');
+                                    console.log('this level can be completed by your ai in ' + (i + 1) + ' steps');
+                                    console.log('');
+                                    console.log('total ai brain length: ' + AI.length);
+                                    console.log('ai brain: ' + AI);
+                                    console.log(level[0] + '\n' + level[1] + '\n' + level[2] + '\n' + level[3] + '\n' + level[4] + '\n' + level[5] + '\n' + level[6] + '\n' + level[7] + '\n' + level[8]);
+                                }
+                                return 1;
+                            }
+                            else{
+                                possible = false;
+                                if(testnotes){
+                                    console.log("couldn't move player from " + pposition + " to " + leftblock);
+                                    console.log("this level can't be completed by your ai");
+                                }
+                                return 3;
+                            }
+                        }
+                    }
+
+                    if(!possible){
+                        if(testnotes){
+                            console.log("this level can't be completed by your ai");
+                        }
+                        return 2;
+                    }
+                }
+            }
+
+            async function hellothere(){
+                randomlevel = await thisfunctionwillbecalledbytheotherprogram();
+            }
+        </script>
+    </body>
+</html>
