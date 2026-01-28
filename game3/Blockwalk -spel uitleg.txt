@@ -1,0 +1,28 @@
+Deze game werkt in je browser (bijvoorbeeld google chrome). Het spel werkt alleen op je PC, *niet* op je telefoon.
+
+Open het "index.html" bestand met je browser, om het spel te openen.
+
+Controls:
+- Gebruik WASD of de pijltjes toetsen om te bewegen.
+
+- Druk op spatie, enter of escape om het menu te tonen
+  -> Het midden van het menu bevat de level selectie
+  -> Rechts van het menu staan speel-tips
+  -> Links van het menu staan knoppen
+    -> "AI generated level", een zelf geprogrameerd algoritme bedenkt zelf een level. *DISCLAIMER* De wachttijd kan een paar minuten duren, en de levels zijn meestal niet heel goed.
+    -> "Try a different style type", de stijl van het spel zal verwisselen tussen pixel-art en een cartoon stijl.
+    -> "Randomly generated level", een level, vergelijkbaar met het AI gegenereerde level, maar dit level is meestal niet oplosbaar.
+    -> "Reset window size", mocht je het tablat kleiner of groter hebben gemaakt, dan kan je met deze knop de verhoudingen van alles hierop aanpassen
+    -> "Reset level", herstart het huidige level, als je vast bent gelopen. Alternatief kan je ook op "R" drukken voor hetzelfde effect.
+
+- Doel van het spel: Navigeer door elk van de 9 levels, en vind de finish. (de cirkel met een rode buiten ring, en een gouden binnen ring).
+
+- Verschillende type blokken:
+  -> Stop bord: Een blok waar je niet doorheen kan lopen, en die je niet kan duwen.
+  -> Push-block: Een blok waar je niet doorheen kan lopen, maar die je wel kan duwen. 
+    -> Je kan slechts één van deze blokken tegelijk duwen.
+    -> Door dit blok te duwen beland je in een ander ritme.
+  -> Spikes: Elke stap die je zet gaan de ingetrokken spikes omhoog, en de uitgestoken spikes omlaag.
+    -> Soms moet je eerst in een ander ritme komen om hier langs te kunnen.
+  -> Een-richtings pijl: Je kan door dit blok heen, maar je kan er alleen in via de achterkant van de pijl, en je kan er alleen uit via de voorkant van de pijl.
+  
