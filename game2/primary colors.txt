@@ -1,0 +1,148 @@
+//primary colors:
+"white": "#FFFFFF",
+"black": "#000000",
+"red": "#FF0000",
+"green": "#00FF00",
+"blue": "#0000FF",
+"yellow": "#FFFF00",
+"cyan": "#00FFFF",
+"magenta": "#FF00FF",
+
+//secundairy colors:
+"gray": "#808080",
+"salmon pink": "#FF8080",
+"lime": "#80FF80",
+"light blue": "#8080FF",
+"light yellow": "#FFFF80",
+"sky blue": "#80FFFF",
+"light magenta": "#FF80FF",
+
+"maroon red": "#800000",
+"forest green": "#008000",
+"navy blue": "#000080",
+"olive": "#808000",
+"teal": "#008080",
+"purple": "#800080",
+
+"orange": "#FF8000",
+"hot pink": "#FF0080",
+"chartreuse": "#80FF00",
+"mint": "#00FF80",
+"azure": "#0080FF",
+"violet": "#8000FF",
+
+//thirtiary colors:
+//white + secundary colors:
+"light gray": "#C0C0C0",
+"pale pink": "#FFC0C0",
+"pale green": "#C0FFC0",
+"pale blue": "#C0C0FF",
+"pale yellow": "#FFFFC0", //also possible: parchment
+"pale cyan": "#C0FFFF",
+"pale magenta": "#FFC0FF",
+"muted pink": "#C08080", //also possible: terracotta pink
+"light muted green": "#80C080",
+"muted blue": "#8080C0",
+"light olive": "#C0C080",
+"light teal": "#80C0C0",
+"lavender": "#C080C0",
+"light orange": "#FFC080",
+"pink": "#FF80C0",
+"warm light mint": "#C0FF80",
+"light azure": "#80C0FF",
+"very light violet": "#C080FF",
+
+//black + secundary colors:
+"dark gray": "#404040",
+"deep pink": "#804040",
+"sage green": "#408040",
+"denim": "#404080",
+"soft olive": "#808040",
+"dark lavender": "#804080",
+"deep red": "#400000",
+"deep green": "#004000",
+"deep blue": "#000040",
+"dark olive": "#404000",
+"dark teal": "#004040",
+"dark purple": "#400040",
+"brown": "#804000",
+"dark pink": "#800040",
+"dark chartreuse": "#408000",
+"dark mint": "#008040",
+"blueberry": "#004080",
+"indigo": "#400080",
+
+//red + secondary colors:
+"muted red": "#C04040",
+"light red": "#FF4040",
+"light brown": "#C08040",
+"muted magenta": "#C04080",
+"tangerine": "#FF8040",
+"muted hot pink": "#FF4080",
+"crimson": "#C00000",
+"rust": "#C04000",
+"cardinal red": "#C00040",
+"orange red": "#FF4000",
+"carmine red": "#FF0040",
+"marigold ray": "#C08000",
+"purple anxiety": "#C00080",
+
+//green + secondary colors:
+"dark muted green": "#40C040",
+"avocado green": "#80C040",
+"light green": "#40FF40",
+"aquamarine": "#40C080",
+"kiwi green": "#80FF40",
+"light mint": "#40FF80",
+"Bilbao": "#4080FF",
+"grass green": "#00C000",
+"warm grass green": "#40C000",
+"cold grass green": "#00C040",
+"cactus green": "#80C000",
+"off-green": "#40FF00",
+"cold green": "#00FF40",
+"muted mint": "#00C080",
+"soft teal": "#408080",
+
+//blue + secondary colors:
+"blue denim": "#4040C0", //from gray
+"dark orchid": "#8040C0", //from salmon pink
+"cold muted blue": "#4080C0", //from lime
+"medium light blue": "#4040FF",//from sapphire
+"light violet": "#8040FF", //from light magenta
+"sapphire": "#0000C0", //from navy
+"cobalt": "#0040C0", //from teal
+"strong violet": "#4000C0", //from purple
+"cold violet": "#8000C0", //from hot pink
+"cerulean": "#0080C0", //from mint
+"lapis": "#0040FF", //from azure
+"han purple": "#4000FF", //from violet
+
+//yellow + secondary colors:
+"moderate yellow": "#C0C040", //from gray
+"marigold": "#FFC040", //from salmon pink
+"pale chartreuse": "#C0FF40", //from lime
+"paris daisy": "#FFFF40", //from light yellow
+"dark goldenrod": "#C08000", //from maroon
+"gold": "#C0C000", //from olive
+"amber": "#FFC000", //from orange
+"electric lime": "#C0FF00", //from chartreuse
+
+//cyan + secondary colors:
+"medium turquoise": "#40C0C0", //from gray
+"cold mint": "#40FFC0", //from mint
+"light cerulean": "#40C0FF", //from light blue
+"cold light mint": "#80FFC0", //from light yellow
+"off-cyan": "#40FFFF", //from sky blue
+"robins egg blue": "#00C0C0", //from teal
+"mint cyan": "#20FFC0", //from mint
+"capri": "#00C0FF", //from azure
+
+//magenta + secondary colors:
+"dark magenta": "#C040C0", //from gray
+"barbie pink": "#FF40C0", //from salmon pink
+"medium light violet": "#C040FF", //from light blue
+"off-magenta": "#FF40FF", //from light magenta
+"light purple": "#C000C0", //from purple
+"hot magenta": "#FF00C0", //from hot pink
+"electric purple": "#C000FF" //from violet
