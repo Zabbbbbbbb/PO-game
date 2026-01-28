@@ -1,0 +1,8 @@
+Deze game werkt direct op je PC. Je hebt geen browser of andere app nodig om hem te kunnen spelen.
+
+Open het "test6.exe" bestand, en het spel zal openen.
+
+Controls:
+- Voer per keuze 1, 2, 3 of 4 in.
+- Houd spatie ingedrukt om de tekst sneller te laten verschijnen
+- Druk op enter om de tekst opnieuw te laten verschijnen
