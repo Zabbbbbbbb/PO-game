@@ -6,3 +6,6 @@ Controls:
 - Voer per keuze 1, 2, 3 of 4 in.
 - Houd spatie ingedrukt om de tekst sneller te laten verschijnen
 - Druk op enter om de tekst opnieuw te laten verschijnen
+
+Bronnen:
+- raysan5. (2017, April 4). raysan5/examples/text/text_writing_anim.c. Retrieved from github.com: https://github.com/raysan5/raylib/blob/master/examples/text/text_writing_anim.c
