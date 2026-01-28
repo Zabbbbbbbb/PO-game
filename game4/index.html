@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Poker AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700&family=Inter:wght@400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div id="game-container">
+
+        <!-- Community Cards -->
+        <div id="community-area">
+            <!-- Cards will be injected here JS -->
+            <div class="card-slot"></div>
+            <div class="card-slot"></div>
+            <div class="card-slot"></div>
+            <div class="card-slot"></div>
+            <div class="card-slot"></div>
+        </div>
+
+        <!-- Pot & Status -->
+        <div id="game-status">
+            <div id="pot-info">Pot: $<span id="pot-amount">0</span></div>
+            <div id="message-area">Waiting to deal...</div>
+        </div>
+
+        <!-- Opponents -->
+        <!-- Top Player (Original CPU) -->
+        <div id="player-cpu1" class="player-seat" style="top: 50px;">
+            <div class="player-hand" id="hand-cpu1"></div>
+            <div class="player-info">
+                <div class="player-name">The House</div>
+                <div class="player-chips">$<span id="chip-count-cpu1">1000</span></div>
+            </div>
+            <div class="dealer-btn" id="dealer-cpu1" style="display:none;">D</div>
+        </div>
+
+        <!-- Left Player -->
+        <div id="player-cpu2" class="player-seat" style="top: 40%; left: 50px; align-items: flex-start;">
+            <div class="player-hand" id="hand-cpu2"></div>
+            <div class="player-info">
+                <div class="player-name">Bot Lefty</div>
+                <div class="player-chips">$<span id="chip-count-cpu2">1000</span></div>
+            </div>
+            <div class="dealer-btn" id="dealer-cpu2" style="display:none;">D</div>
+        </div>
+
+        <!-- Right Player -->
+        <div id="player-cpu3" class="player-seat" style="top: 40%; right: 50px; align-items: flex-end;">
+            <div class="player-hand" id="hand-cpu3"></div>
+            <div class="player-info">
+                <div class="player-name">Bot Righty</div>
+                <div class="player-chips">$<span id="chip-count-cpu3">1000</span></div>
+            </div>
+            <div class="dealer-btn" id="dealer-cpu3" style="display:none;">D</div>
+        </div>
+
+        <!-- User -->
+        <div id="player-user" class="player-seat">
+            <div class="dealer-btn" id="dealer-user" style="display:none; top: -15px; right: -10px;">D</div>
+            <div class="player-hand" id="hand-user"></div>
+            <div class="player-info">
+                <div class="player-name">You</div>
+                <div class="player-chips">$<span id="chip-count-user">1000</span></div>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <div id="controls-bar">
+            <button id="btn-fold" class="btn btn-fold" onclick="game.fold()">Fold</button>
+            <button id="btn-check" class="btn btn-check" onclick="game.check()">Check</button>
+            <button id="btn-call" class="btn btn-check" onclick="game.call()">Call</button>
+            <button id="btn-raise" class="btn btn-raise" onclick="game.raise()">Raise $50</button>
+            <button id="btn-deal" class="btn btn-raise" style="display:none;" onclick="game.startRound()">Next
+                Hand</button>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
