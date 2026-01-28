@@ -1,0 +1,37 @@
+Deze game werkt in je browser (bijvoorbeeld google chrome). Het spel werkt zowel op je PC als je telefoon.
+
+Open het "Cube Ranch.html" bestand met je browser, om het spel te openen.
+
+Controls:
+- Als je met je cursor over een slijm heen gaat zie je de naam van de slijm, gevolgd door de hex-code (de kleur).
+
+- Klik op een slijm met je linker muisknop (of tik erop op je telefoon) om het menu te laten verschijnen. *LET OP* klikken op het oog werkt niet, je moet op het lichaam klikken.
+  -> Klik in het menu op "Change name" om de naam van die specifieke slijm te veranderen.
+  -> Klik in het menu op "Kill slime" om die specifieke slijm te verwijderen.
+
+- Klik in het blok links boven met je linker muisknop op een van de twee vakjes met een gestippelde omlijning, en vervolgens op twee verschillende volwassen slijms om ze te mengen.
+  -> Het resultaat zal als kleur het gemiddelde van de twee kleuren van de ouders hebben.
+  -> De vorm van het resultaat zal of ergens tussen de ouders in zitten, of hetzelfde zijn als een van de ouders. 
+  -> De twee uitzonderingen zijn: 
+    -> "droplet", waarbij het resultaat een kans heeft om de vorm "circle" te zijn.
+    -> "roiunded square", waarbij het restulaat een kans heeft om de vorm "square" te zijn.
+
+- Klik in het blok midden boven met je rechter muisknop op een van de acht vakjes met een gestippelde omlijning, en vervolgens op een volwassen slijm, om de vorm en kleur op te slaan.
+  -> Klik vervolgens op het vakje waarin de vorm en kleur staat opgeslagen met je linker muisknop om een volwassen slijm met die vorm een kleur in te spawnen.
+
+- Het blok rechts boven bevat twee onderdelen: Knoppen en de missie:
+  -> Knoppen, gezien aan het linker deel van het blok rechts boven. (gelezen van boven naar onder, links naar rechts):
+    -> "add prime colors", voegt de 8 primaire kleuren toe, waarmee je elke kleur en vorm combinatie kan maken
+    -> "kill all", verwijdert alle slijms die op het scherm staan. Je save-slots blijven wel gevuld.
+    -> "empty saved", leegt alle save slots
+    -> "difficulty", selecteer onder "difficulty", 1, 2, 3 of 4, om de moeilijkheidsgraad van de missie in te stellen
+      -> 1: Je kan elke vorm invoeren, en de kleur is een van de 8 primaire kleuren waarmee je begint
+      -> 2: Je kan elke vorm invoeren, en de kleur is behaalbaar met slechts 1 combinatie
+      -> 3: Je moet een specifieke random vorm invoeren, en de kleur is behaalbaar binnen 3 combinaties
+      -> 4: Je moet een specifieke random vorm invoeren, en een random hex-code kleur. (Theoretisch gezien is elke hex code behaalbaar in het systeem)
+  -> Missie, gezien aan het rechter deel van het blok rechts boven.
+    -> onder de tekst "Next mission:" vindt je je volgende missie
+      -> Eerst de vorm, gevolgd door de naam van de kleur (behalve bij moeilijkheidsgraad 4, waar geen kleur namen zijn), gevolgd door de hex-code tussen haakjes.
+      -> Voorbeeld: "cube, dark teal (#004040)"
+    -> Rechts onder staat een vak met een gestippelde omlijning. Klik met je linker muisknop op dit vak, en vervolgens op de slijm die de specificaties van de missie volgt.
+    -> Als je de verkeerde slijm hebt aangeklikt (een slijm met de verkeerde vorm, of de verkeerde kleur), dan zal hij worden geweigerd.
