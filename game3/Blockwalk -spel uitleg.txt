@@ -25,4 +25,7 @@ Controls:
   -> Spikes: Elke stap die je zet gaan de ingetrokken spikes omhoog, en de uitgestoken spikes omlaag.
     -> Soms moet je eerst in een ander ritme komen om hier langs te kunnen.
   -> Een-richtings pijl: Je kan door dit blok heen, maar je kan er alleen in via de achterkant van de pijl, en je kan er alleen uit via de voorkant van de pijl.
-  
+
+Bronnen:
+- Volledig door mijzelf (Zeb Sleijfer) geschreven en geillustreerd.
+
