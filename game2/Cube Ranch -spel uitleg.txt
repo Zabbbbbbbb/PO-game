@@ -35,3 +35,7 @@ Controls:
       -> Voorbeeld: "cube, dark teal (#004040)"
     -> Rechts onder staat een vak met een gestippelde omlijning. Klik met je linker muisknop op dit vak, en vervolgens op de slijm die de specificaties van de missie volgt.
     -> Als je de verkeerde slijm hebt aangeklikt (een slijm met de verkeerde vorm, of de verkeerde kleur), dan zal hij worden geweigerd.
+
+Bronnen:
+- Volledig door mijzelf (Zeb Sleijfer) geschreven.
+
