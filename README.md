@@ -9,3 +9,9 @@ Onderstaand een korte omschrijving van de inhoud van elke game:
 - game2: Een html bestand. Een puzzel spel over het mengen van kleuren, geschreven in javascript, html en css (speelt zich af in je browser).
 - game3: Een html bestand. Een doolhof spel, geschreven in javascript, html en css (speelt zich af in je browser).
 - game4: Een poker spel (bram kan jij nog even een beschrijving maken enzo)
+
+Installatie instructie:
+- Je kan de hele folder met alle documenten downloaden op github via de groene knop "code", en vervolgens op "download zip".
+- Klik na de installatie van de zip met je rechter muisknop op de folder en klik vervolgens op "uitpakken".
+- Je kan nu alle vier de games vanuit je file explorer spelen. Je kan hier ook de spel uitleg vinden.
+- Je kan spel 3 ook via de volgende link spelen: https://wappel.itch.io/blockwalk
